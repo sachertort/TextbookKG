@@ -1,0 +1,13 @@
+type: graph_intelligence
+extraction_prompt: "prompts/qa_entity_extraction.txt" # Optional, the prompt to use for extraction
+completion_delimiter: "<|COMPLETE|>" # Optional, the delimiter to use for the LLM to mark completion
+tuple_delimiter: "<|>" # Optional, the delimiter to use for the LLM to mark a tuple
+record_delimiter: "##" # Optional, the delimiter to use for the LLM to mark a record
+
+encoding_name: cl100k_base # Optional, The encoding to use for the LLM with gleanings
+
+llm: # The configuration for the LLM
+    type: openai # the type of llm to use, available options are: openai, azure, openai_chat, azure_openai_chat.  The last two being chat based LLMs.
+    api_key: ${GRAPHRAG_API_KEY} # The api key to use for openai
+    model: gpt-4o # The model to use for openai
+    max_tokens: 6000 # The max tokens to use for openaix

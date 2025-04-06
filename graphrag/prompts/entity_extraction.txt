@@ -1,0 +1,109 @@
+
+-Goal-
+Given a text document that is potentially relevant to this activity, first identify all entities needed from the text in order to capture the information and ideas in the text.
+Next, report all relationships among the identified entities.
+
+-Steps-
+1. Identify all entities. For each identified entity, extract the following information:
+- entity_name: Name of the entity, capitalized
+- entity_type: [{entity_types}]
+- entity_description: Comprehensive description of the entity's attributes and activities
+Format each entity as ("entity"{tuple_delimiter}<entity_name>{tuple_delimiter}<entity_type>{tuple_delimiter}<entity_description>)
+
+2. From the entities identified in step 1, identify all pairs of (source_entity, target_entity) that are *clearly related* to each other.
+For each pair of related entities, extract the following information:
+- source_entity: name of the source entity, as identified in step 1
+- target_entity: name of the target entity, as identified in step 1
+- relationship_description: explanation as to why you think the source entity and the target entity are related to each other
+- relationship_strength: a numeric score indicating strength of the relationship between the source entity and target entity
+Format each relationship as ("relationship"{tuple_delimiter}<source_entity>{tuple_delimiter}<target_entity>{tuple_delimiter}<relationship_description>{tuple_delimiter}<relationship_strength>)
+
+3. Return output in The primary language of the provided text is "English." as a single list of all the entities and relationships identified in steps 1 and 2. Use **{record_delimiter}** as the list delimiter.
+
+4. If you have to translate into The primary language of the provided text is "English.", just translate the descriptions, nothing else!
+
+5. When finished, output {completion_delimiter}.
+
+-Examples-
+######################
+
+Example 1:
+
+text:
+ each other with equal probability 1/3 (it was trained on a training set with equal counts for the 3 colors), and a test set T = “red red red red blue”.
+Let’s ﬁrst convince ourselves that if we compute the perplexity of this artiﬁcial digit language on this test set (or any such test set) we indeed get 3. By Eq. 3.15, the perplexity
+For example if we use both begin and end tokens, we would include the end-of-sentence marker </s> but not the beginning-of-sentence marker <s> in our count of N; This is because the end-sentence token is followed directly by the begin-sentence token with probability almost 1, so we don’t want the probability of that fake transition to inﬂuence our perplexity.
+
+--- Page 42 ---
+42 CHAPTER 3 • N- GRAM LANGUAGE MODELS
+------------------------
+output:
+("entity"{tuple_delimiter}TRAINING SET{tuple_delimiter}CONCEPT{tuple_delimiter}A collection of data used to train a model, in this case, with equal counts for 3 colors{record_delimiter}
+("entity"{tuple_delimiter}TEST SET{tuple_delimiter}CONCEPT{tuple_delimiter}A collection of data used to evaluate the model, in this case, consisting of the sequence "red red red red blue"{record_delimiter}
+("entity"{tuple_delimiter}PERPLEXITY{tuple_delimiter}CONCEPT{tuple_delimiter}A measure used to evaluate the performance of a language model, calculated for the test set{record_delimiter}
+("entity"{tuple_delimiter}N-GRAM LANGUAGE MODELS{tuple_delimiter}CONCEPT{tuple_delimiter}A type of language model that uses the probability of a word based on the previous N-1 words{record_delimiter}
+("relationship"{tuple_delimiter}TRAINING SET{tuple_delimiter}TEST SET{tuple_delimiter}The test set is used to evaluate the model trained on the training set{tuple_delimiter}7{record_delimiter}
+("relationship"{tuple_delimiter}PERPLEXITY{tuple_delimiter}TEST SET{tuple_delimiter}Perplexity is calculated on the test set to measure the model's performance{tuple_delimiter}8{record_delimiter}
+("relationship"{tuple_delimiter}N-GRAM LANGUAGE MODELS{tuple_delimiter}PERPLEXITY{tuple_delimiter}Perplexity is a metric used to evaluate N-gram language models{tuple_delimiter}9{completion_delimiter}
+#############################
+
+
+Example 2:
+
+text:
+Decoder
+Encoder Block
+Decoder Block Unembedding Matrix
+Multi-Head Attention Layer Normalize Layer Normalize Feedforward
+Causal Multi-Head Attention Layer Normalize Layer Normalize
+Feedforward Layer Normalize Cross-Attention Language Modeling Head Henc
+
+Figure 13.6 The transformer block for the encoder and the decoder. The ﬁnal output of the encoder Henc = h1, ... hn is the context used in the decoder. The decoder is a standard transformer except with one extra layer, the cross-attention layer, which takes that encoder output and uses it to form its K and V inputs.
+That is, where in standard multi-head attention the input to each attention layer is X, in cross-attention the input is the the ﬁnal output of the encoder Henc = h1, ..., hn.
+------------------------
+output:
+("entity"{tuple_delimiter}ENCODER{tuple_delimiter}CONCEPT{tuple_delimiter}The encoder is part of the transformer model that processes input data and produces a context used by the decoder)
+{record_delimiter}
+("entity"{tuple_delimiter}DECODER{tuple_delimiter}CONCEPT{tuple_delimiter}The decoder is part of the transformer model that generates output sequences using the context provided by the encoder)
+{record_delimiter}
+("entity"{tuple_delimiter}TRANSFORMER BLOCK{tuple_delimiter}CONCEPT{tuple_delimiter}A fundamental unit in transformer models, consisting of layers like multi-head attention and feedforward networks)
+{record_delimiter}
+("entity"{tuple_delimiter}MULTI-HEAD ATTENTION{tuple_delimiter}CONCEPT{tuple_delimiter}A mechanism in transformer models that allows the model to focus on different parts of the input sequence simultaneously)
+{record_delimiter}
+("entity"{tuple_delimiter}CROSS-ATTENTION{tuple_delimiter}CONCEPT{tuple_delimiter}A layer in the decoder of a transformer model that uses the encoder's output to form its key and value inputs)
+{record_delimiter}
+("entity"{tuple_delimiter}LAYER NORMALIZE{tuple_delimiter}CONCEPT{tuple_delimiter}A process in transformer models used to stabilize and speed up training by normalizing the inputs of each layer)
+{record_delimiter}
+("entity"{tuple_delimiter}FEEDFORWARD{tuple_delimiter}CONCEPT{tuple_delimiter}A component in transformer models that applies a linear transformation followed by a non-linear activation function)
+{record_delimiter}
+("entity"{tuple_delimiter}UNEMBEDDING MATRIX{tuple_delimiter}CONCEPT{tuple_delimiter}A matrix used in the decoder to map the model's output to the vocabulary space for language modeling tasks)
+{record_delimiter}
+("entity"{tuple_delimiter}LANGUAGE MODELING HEAD{tuple_delimiter}CONCEPT{tuple_delimiter}The final layer in a transformer model responsible for generating predictions in language modeling tasks)
+{record_delimiter}
+("relationship"{tuple_delimiter}ENCODER{tuple_delimiter}DECODER{tuple_delimiter}The encoder provides context to the decoder in a transformer model{tuple_delimiter}9)
+{record_delimiter}
+("relationship"{tuple_delimiter}TRANSFORMER BLOCK{tuple_delimiter}ENCODER{tuple_delimiter}The encoder is composed of multiple transformer blocks{tuple_delimiter}8)
+{record_delimiter}
+("relationship"{tuple_delimiter}TRANSFORMER BLOCK{tuple_delimiter}DECODER{tuple_delimiter}The decoder is composed of multiple transformer blocks{tuple_delimiter}8)
+{record_delimiter}
+("relationship"{tuple_delimiter}MULTI-HEAD ATTENTION{tuple_delimiter}TRANSFORMER BLOCK{tuple_delimiter}Multi-head attention is a key component of transformer blocks{tuple_delimiter}9)
+{record_delimiter}
+("relationship"{tuple_delimiter}CROSS-ATTENTION{tuple_delimiter}DECODER{tuple_delimiter}Cross-attention is an additional layer in the decoder of a transformer model{tuple_delimiter}8)
+{record_delimiter}
+("relationship"{tuple_delimiter}LAYER NORMALIZE{tuple_delimiter}TRANSFORMER BLOCK{tuple_delimiter}Layer normalization is used within transformer blocks to stabilize training{tuple_delimiter}7)
+{record_delimiter}
+("relationship"{tuple_delimiter}FEEDFORWARD{tuple_delimiter}TRANSFORMER BLOCK{tuple_delimiter}Feedforward networks are a component of transformer blocks{tuple_delimiter}8)
+{record_delimiter}
+("relationship"{tuple_delimiter}UNEMBEDDING MATRIX{tuple_delimiter}DECODER{tuple_delimiter}The unembedding matrix is used in the decoder to map outputs to vocabulary space{tuple_delimiter}7)
+{record_delimiter}
+("relationship"{tuple_delimiter}LANGUAGE MODELING HEAD{tuple_delimiter}DECODER{tuple_delimiter}The language modeling head is the final layer in the decoder for generating predictions{tuple_delimiter}8)
+{completion_delimiter}
+#############################
+
+
+
+-Real Data-
+######################
+text: {input_text}
+######################
+output:
